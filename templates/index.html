@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>500 Shared Checkboxes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(10, minmax(100px, 1fr));
+      gap: 10px;
+      max-width: 1200px;
+    }
+
+    .box {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fafafa;
+    }
+  </style>
+</head>
+<body>
+  <h1>500 Shared Checkboxes</h1>
+  <div id="grid"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
