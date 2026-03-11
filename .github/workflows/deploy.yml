@@ -36,10 +36,10 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          docker build -t $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker tag $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $REGISTRY/$ECR_REPOSITORY:latest
-          docker push $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          docker push $REGISTRY/$ECR_REPOSITORY:latest
+          sudo docker build -t $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          sudo docker tag $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $REGISTRY/$ECR_REPOSITORY:latest
+          sudo docker push $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          sudo docker push $REGISTRY/$ECR_REPOSITORY:latest
 
       - name: Setup SSH
         run: |
@@ -54,10 +54,10 @@ jobs:
         run: |
           ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << EOF
             aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $REGISTRY
-            docker pull $REGISTRY/$ECR_REPOSITORY:latest
-            docker stop checkboxes-app || true
-            docker rm checkboxes-app || true
-            docker run -d \
+            sudo docker pull $REGISTRY/$ECR_REPOSITORY:latest
+            sudo docker stop checkboxes-app || true
+            sudo docker rm checkboxes-app || true
+            sudo docker run -d \
               --name checkboxes-app \
               --restart unless-stopped \
               -p 80:8000 \
